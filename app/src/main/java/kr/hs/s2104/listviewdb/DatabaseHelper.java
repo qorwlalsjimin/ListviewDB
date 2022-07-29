@@ -1,5 +1,6 @@
 package kr.hs.s2104.listviewdb;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -31,5 +32,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+DB_TABLE);
 
         onCreate(sqLiteDatabase);
+    }
+
+    //create method to insert data
+    public boolean insertData(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(NAME, name);
+
+        long result = db.insert(DB_TABLE, null, contentValues);
+        return result != -1; //if result = -1 data dodsent insert
     }
 }

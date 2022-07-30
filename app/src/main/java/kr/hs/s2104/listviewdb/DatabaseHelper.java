@@ -2,6 +2,7 @@ package kr.hs.s2104.listviewdb;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -42,5 +43,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.insert(DB_TABLE, null, contentValues);
         return result != -1; //if result = -1 data dodsent insert
+    }
+
+    //create method to view data
+    public Cursor viewData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "Select * from "+DB_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        return cursor;
     }
 }
